@@ -239,28 +239,64 @@ public class ProductDAO {
 	//product 테이블의 제품번호에 해당하는 제품의 정보를 수정하는 메서드
 	public int updateProduct(ProductDTO dto) {
 		int result = 0;
-		
+
 		try {
-		openConn();
-		sql = "update products set input_price=?, output_price=?, trans_cost=?, mileage=? where pnum=?";
-		pstmt=con.prepareStatement(sql);
-		pstmt.setInt(1, dto.getInput_price());
-		pstmt.setInt(2, dto.getOutput_price());
-		pstmt.setInt(3, dto.getMileage());
-		pstmt.setInt(4, dto.getTrans_cost());
-		pstmt.setInt(5, dto.getPnum());
-		result = pstmt.executeUpdate();
-			
+			openConn();
+			sql = "update products set input_price=?, output_price=?, trans_cost=?, mileage=? where pnum=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getInput_price());
+			pstmt.setInt(2, dto.getOutput_price());
+			pstmt.setInt(3, dto.getMileage());
+			pstmt.setInt(4, dto.getTrans_cost());
+			pstmt.setInt(5, dto.getPnum());
+			result = pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closeConn(pstmt, con);
 		}
-		
 		return result;
+	}//updateProduct end
+	
+	
+	public int deleteProduct(int product_no) {
+		int result = 0;
 		
+		try {
+			openConn();
+			sql = "delete from products where pnum=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, product_no);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+		}		
+		return result;
+	}//deleteProduct end
+	
+	//제품 번호 다시 작업해주는 메서드
+	public void updatePnum(int product_no) {
+		try {
+			sql = "update products set pnum = pnum-1 where pnum > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, product_no);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(pstmt, con);
+		}
+
 	}
+	
+	
 	
 	
 	}
