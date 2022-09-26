@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<br />
 	<div align="center">
 		<hr width="50%" color="IndianRed">
 		<h3>PRODUCTS 테이블 제품 상세 목록</h3>
@@ -77,14 +78,16 @@
 			%>
 
 			<tr>
-				<td colspan="2" align="center"><input type="submit"
-					value="제품수정"
-					onclick="location.href='update.do?num=<%=cont.getPnum()%>'">
-					&nbsp;&nbsp; <input type="submit" value="제품삭제"
-					onclick="if(confirm('정말로 삭제하시겠습니까?')){
-						location.href='delete.do?num=<%=cont.getPnum()%>'
-					}else { return; }">
-					&nbsp;&nbsp; <input type="button" value="제품목록"
+				<td colspan="2" align="center">
+					<input type="submit" value="제품수정"
+					onclick="location.href='update.do?pnum=<%=cont.getPnum()%>'">
+					&nbsp;&nbsp; 
+					
+					<input type="button" value="제품삭제"
+					onclick="if(confirm('정말로 삭제하시겠습니까?')){location.href='delete.do?pnum=<%=cont.getPnum()%>'}else { return; }">
+					&nbsp;&nbsp; 
+					
+					<input type="button" value="제품목록"
 					onclick="location.href='select.do'"></td>
 			</tr>
 
