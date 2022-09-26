@@ -275,7 +275,7 @@ public class ProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-
+			closeConn(rs, pstmt, con);
 		}		
 		return result;
 	}//deleteProduct end

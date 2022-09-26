@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.products.model.ProductDAO;
-import com.products.model.ProductDTO;
 
 /**
  * Servlet implementation class DeleteServlet
@@ -51,6 +50,7 @@ public class DeleteServlet extends HttpServlet {
 			out.println("<script>");
 			out.println("alert('제품 삭제 실패 ! ㅜㅜ')");
 			out.println("history.back()");
+//			out.println("history.back(-1)");
 			out.println("</script>");
 		}
 		
