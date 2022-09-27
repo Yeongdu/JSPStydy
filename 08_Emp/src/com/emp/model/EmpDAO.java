@@ -79,6 +79,7 @@ public class EmpDAO {
 			}
 		}//closeConn end
 		
+		
 		public List<EmpDTO> getEmpList(){
 			List<EmpDTO> list = new ArrayList<EmpDTO>();
 			
@@ -110,6 +111,8 @@ public class EmpDAO {
 			return list;
 		}//getEmpList end
 
+		
+		
 		public List<String> getJobList() {
 			List<String> jobList = new ArrayList<String>();
 			
@@ -130,7 +133,9 @@ public class EmpDAO {
 				closeConn(rs, pstmt, con);
 			}
 			return jobList;
-		}
+		}//getJobList end
+		
+		
 		
 		public List<EmpDTO> getMgrList() {
 			List<EmpDTO> mgrList = new ArrayList<EmpDTO>();
@@ -147,10 +152,7 @@ public class EmpDAO {
 				dto.setEname(rs.getString("ename"));
 				
 				mgrList.add(dto);
-				
 			}
-			
-			
 			
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -159,7 +161,7 @@ public class EmpDAO {
 				closeConn(rs, pstmt, con);
 			}
 			return mgrList;
-		}
+		}//getMgrList end
 		
 		
 		
@@ -179,9 +181,7 @@ public class EmpDAO {
 				dto.setLoc(rs.getString("loc"));
 				
 				deptList.add(dto);
-				
 			}
-			
 			
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -190,6 +190,36 @@ public class EmpDAO {
 				closeConn(rs, pstmt, con);
 			}
 			return deptList;
+		}//getDeptList end
+		
+		
+		public int insertEmp(EmpDTO dto) {
+			int result = 0;
 			
-		}
+			try {
+			openConn();
+			sql = "insert into emp values(?,?,?,?,sysdate,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getEmpno());
+			pstmt.setString(2, dto.getEname());
+			pstmt.setString(3, dto.getJob());
+			pstmt.setInt(4, dto.getMgr());
+			pstmt.setInt(5, dto.getSal());
+			pstmt.setInt(6, dto.getComm());
+			pstmt.setInt(7, dto.getDeptno());
+			
+			result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			return result;
+		}//insertEmp end
+		
+		
+		
+		
 }
