@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class EmpDAO {
 	
 		// DB와 연동하는 객체
@@ -208,6 +210,7 @@ public class EmpDAO {
 			pstmt.setInt(6, dto.getComm());
 			pstmt.setInt(7, dto.getDeptno());
 			
+			
 			result = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -218,6 +221,43 @@ public class EmpDAO {
 			}
 			return result;
 		}//insertEmp end
+		
+		
+		
+		
+		public EmpDTO getContentEmp(int emp_num) {
+			EmpDTO dto = null;
+			
+			try {
+				openConn();
+				
+				sql = "select * from emp where empno = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, emp_num);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					dto = new EmpDTO();
+	
+					dto.setEmpno(rs.getInt("empno"));
+					dto.setEname(rs.getString("ename"));
+					dto.setJob(rs.getString("job"));
+					dto.setMgr(rs.getInt("mgr"));
+					dto.setHiredate(rs.getString("hiredate"));
+					dto.setSal(rs.getInt("sal"));
+					dto.setComm(rs.getInt("comm"));
+					dto.setDeptno(rs.getInt("deptno"));
+
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			return dto;
+		}
 		
 		
 		
