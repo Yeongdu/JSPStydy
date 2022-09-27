@@ -1,3 +1,4 @@
+<%@page import="com.emp.model.DeptDTO"%>
 <%@page import="com.emp.model.EmpDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

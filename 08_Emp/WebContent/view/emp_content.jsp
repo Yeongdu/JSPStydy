@@ -1,15 +1,37 @@
+<%@page import="com.emp.model.DeptDTO"%>
 <%@page import="com.emp.model.EmpDTO"%>
+<%@ page import="java.text.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
 	EmpDTO cont = (EmpDTO)request.getAttribute("eContent");
+	String mgrName = ((String)request.getAttribute("mgrName"));
+	String deptName = ((String)request.getAttribute("deptName"));
+
+	DecimalFormat df = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+table tr td, table tr, table{
+background-color: LightBlue;
+text-align: center;
+border : 1px solid gray;
+border-spacing: 0px;
+}
+
+table th {
+background-color: PeachPuff;
+text-align: center;
+border : 1px solid gray;
+border-spacing: 0px;
+}
+
+</style>
 </head>
 <body>
 <br />
@@ -18,7 +40,7 @@
 		<h3>EMP 테이블 사원 상세 정보</h3>
 		<hr width="50%" color="IndianRed">
 		<br> <br>
-		<table border="1" cellspacing="0" width="400">
+		<table width="400">
 			<%
 				if (cont != null) {//데이터가 있다면
 			%>
@@ -36,11 +58,11 @@
 			</tr>
 			<tr>
 				<th>관리자</th>
-				<td><%=cont.getMgr()%></td>
+				<td><%=cont.getMgr()%> [<%=mgrName %>]</td>
 			</tr>
 			<tr>
 				<th>급여</th>
-				<td><%=cont.getSal()%></td>
+				<td><%=df.format(cont.getSal())%></td>
 			</tr>
 			<tr>
 				<th>보너스</th>
@@ -48,7 +70,7 @@
 			</tr>
 			<tr>
 				<th>부서번호</th>
-				<td><%=cont.getDeptno()%></td>
+				<td><%=cont.getDeptno()%> [<%=deptName %>]</td>
 			</tr>
 			<tr>
 				<th>입사일</th>
@@ -71,12 +93,12 @@
 			
 			<tr>
 				<td colspan="2" align="center">
-					<input type="submit" value="수정"
-					onclick="location.href='update.do?empno=<%=cont.getEmpno()%>'">
+					<input type="button" value="수정"
+					onclick="location.href='update.do?no=<%=cont.getEmpno()%>'">
 					&nbsp;&nbsp; 
 					
 					<input type="button" value="삭제"
-					onclick="if(confirm('정말로 삭제하시겠습니까?')){location.href='delete.do?empno=<%=cont.getEmpno()%>'}else { return; }">
+					onclick="if(confirm('정말로 삭제하시겠습니까?')){location.href='delete.do?no=<%=cont.getEmpno()%>'}else { return; }">
 					&nbsp;&nbsp; 
 					
 					<input type="button" value="목록"
