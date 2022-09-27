@@ -28,7 +28,7 @@ public class SelectServlet extends HttpServlet {
 
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// DB에서 BOARD테이블의 게시글 전체 목록을 조회하여 넘겨받은 후 view page로 이동시키는 비지니스 로직
 		BoardDAO dao = BoardDAO.getInstance();
 		List<BoardDTO> BoardList = dao.getBoardList();
 		request.setAttribute("bList", BoardList);

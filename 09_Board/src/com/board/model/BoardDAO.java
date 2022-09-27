@@ -81,7 +81,7 @@ public class BoardDAO {
 		
 		try {
 		openConn();
-		sql = "select * from board order by board_no";
+		sql = "select * from board order by board_no desc ";
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		

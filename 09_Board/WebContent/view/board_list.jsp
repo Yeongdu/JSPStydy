@@ -42,23 +42,30 @@ background-color: LightCyan;}
 			
 			<tr>
 				<td><%=dto.getBoard_no() %></td>
-				<td><%=dto.getBoard_title() %></td>
+				<td><a href="<%=request.getContextPath()%>/content.do?no=<%=dto.getBoard_no() %>">
+				<%=dto.getBoard_title() %></a></td>
 				<td><%=dto.getBoard_writer() %></td>
 				<td><%=dto.getBoard_hit() %></td>
-				<td><%=dto.getBoard_date() %></td>
+				<td><%=dto.getBoard_date().substring(0,10) %></td>
 			<tr>
 				<%   } //for문 end
 			} //if문 끝
 			else { //데이터가 없는 경우
 			%>
 			<tr>
-				<td colspan="4" align="center">
+				<td colspan="5" align="center">
 					<h3>글이 없습니다.</h3>
 				</td>
 			</tr>
 			<%
 				}
 			%>
+			
+			<tr>
+				<td colspan="5" align="center">
+					<input type="button" value="글쓰기" onclick="location.href='view/board_write.jsp'">
+				</td>
+			</tr>
 			
 		</table>
 		
