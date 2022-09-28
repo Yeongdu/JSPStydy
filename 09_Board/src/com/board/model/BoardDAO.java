@@ -107,7 +107,92 @@ public class BoardDAO {
 		}
 		return bList;
 	}
+	
+	public int insertBoard(BoardDTO dto) {
+		int result = 0, count = 0;
+
+		try {
+			openConn();
+			sql = "select max(board_no) from board";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+
+			sql = "insert into board values(?, ?, ?, ?, ?, default, sysdate, '')";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setString(2, dto.getBoard_writer());
+			pstmt.setString(3, dto.getBoard_title());
+			pstmt.setString(4, dto.getBoard_cont());
+			pstmt.setString(5, dto.getBoard_pwd());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}// insertBoard end
+	
+	
+	//조회수 증가 메서드
+	public void boardHit(int num) {
+			try {
+			openConn();
+			sql = "update board set board_hit = board_hit + 1 where board_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+		}// boardHit end
 
 	
+	public BoardDTO getContentBoard(int no) {
+
+		BoardDTO dto = null;
+		
+		try {
+			openConn();
+			sql = "select * from board where board_no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto = new BoardDTO();
+				dto.setBoard_no(rs.getInt("board_no"));
+				dto.setBoard_writer(rs.getString("board_writer"));
+				dto.setBoard_title(rs.getString("board_title"));
+				dto.setBoard_cont(rs.getString("board_cont"));
+				dto.setBoard_pwd(rs.getString("board_pwd"));
+				dto.setBoard_hit(rs.getInt("board_hit"));
+				dto.setBoard_date(rs.getString("board_date"));
+				dto.setBoard_update(rs.getString("board_update"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}// getContentBoard end
 	
-}
+	
+	
+
+		
+	}
+	
+	
+

@@ -114,7 +114,7 @@
 				<tr>
 					<td colspan="2" align="center"><input type="submit" value="등록">&nbsp;&nbsp;
 						<input type="reset" value="다시작성">&nbsp;&nbsp; <input
-						type="button" value="목록" onclick="location.href='select.do'">
+						type="button" value="목록" onclick="<%=request.getContextPath() %>/select.do">
 					</td>
 				</tr>
 

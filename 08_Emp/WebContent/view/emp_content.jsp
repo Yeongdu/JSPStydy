@@ -76,7 +76,6 @@ border-spacing: 0px;
 				<th>입사일</th>
 				<td><%=cont.getHiredate()%></td>
 			</tr>
-			
 			<%
 				} else { //데이터가 없다면
 			%>
@@ -105,6 +104,7 @@ border-spacing: 0px;
 					onclick="location.href='select.do'"></td>
 			</tr>
 		</table>
+			
 	</div>
 </body>
 </html>

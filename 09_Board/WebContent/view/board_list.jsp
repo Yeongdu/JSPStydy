@@ -16,6 +16,10 @@
 table tr th {
 background-color: LightCyan;}
 
+table tr td, table tr{
+padding: 0.5em;
+}
+
 </style>
 </head>
 <body>
