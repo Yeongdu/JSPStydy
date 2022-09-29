@@ -42,48 +42,42 @@ border-spacing: 0px;
 
 		<form method="post"
 			action="<%=request.getContextPath() %>/update_ok.do">
-			  <input type="hidden" name="board_no" 
-	      				value="<%=cont.getBoard_no() %>">
+			<input type="hidden" name="board_no" value="<%=cont.getBoard_no() %>">
 			<table width="400">
-			
-       		<tr>
-            	<th>작성자</th>
-            	<td><input type="text" name="writer" value="<%=cont.getBoard_writer()%>" readonly></td>
-            </tr>
-            
-            
-			<tr>
-				<th>글제목</th>
-				<td>
-				<input type="text" name="title" value="<%=cont.getBoard_title()%>">
-				</td>
-			</tr>
-			
-			<tr>
-				<th>글내용</th>
-				<td>
-				<textarea rows="7" cols="25" name="content"><%=cont.getBoard_cont()%>"</textarea>
-				</td>
-			</tr>
-			
-			<tr>
-				<th>비밀번호</th>
-				<td>
-					<input type="password" name="pwd">
-				</td>
-			</tr>
-			
-			
-			<tr>
-					<td colspan="2" align="center">
-						<input type="submit" value="수정">&nbsp;&nbsp;
-						<input type="reset" value="다시작성">&nbsp;&nbsp;
-						<input type="button" value="목록"
-						onclick="location.href='select.do'">
+
+				<tr>
+					<th>작성자</th>
+					<td><input type="text" name="writer"
+						value="<%=cont.getBoard_writer()%>" readonly></td>
+				</tr>
+
+
+				<tr>
+					<th>글제목</th>
+					<td><input type="text" name="title"
+						value="<%=cont.getBoard_title()%>"></td>
+				</tr>
+
+				<tr>
+					<th>글내용</th>
+					<td><textarea rows="7" cols="25" name="content"><%=cont.getBoard_cont()%>"</textarea>
 					</td>
 				</tr>
-			
-			</form>
+
+				<tr>
+					<th>비밀번호</th>
+					<td><input type="password" name="pwd"></td>
+				</tr>
+
+
+				<tr>
+					<td colspan="2" align="center"><input type="submit" value="수정">&nbsp;&nbsp;
+						<input type="reset" value="다시작성">&nbsp;&nbsp; <input
+						type="button" value="목록" onclick="location.href='select.do'">
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 
 </body>
