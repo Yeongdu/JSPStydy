@@ -74,6 +74,35 @@ padding: 0.5em;
 		</table>
 		
 		
+		 <br>
+	   <hr width="50%" color="red">
+	   <br>
+	   
+	   <%-- 검색 관련 요청 태그 --%>
+	   <form method="post"
+	      action="<%=request.getContextPath() %>/search.do">
+	   
+	      <select name="find_field">
+	      	 <%-- String find_field = "title"; --%>
+	         <option value="title">제목</option>
+	         
+	         <%-- String find_field = "cont"; --%>
+	         <option value="cont">내용</option>
+	         
+	         <%-- String find_field = "title_cont"; --%>
+	         <option value="title_cont">제목+내용</option>
+	         
+	         <%-- String find_field = "writer"; --%>
+	         <option value="writer">작성자</option>
+	      </select>
+	      
+	      <input type="text" name="find_name">
+	      
+	      <input type="submit" value="검색">
+	      
+	   </form>
+		
+		
 	</div>
 
 </body>

@@ -121,13 +121,27 @@ border-spacing: 0px;
 				}
 			%>
 
+
+
+
 			<tr>
-				<td colspan="4" align="center"><input type="button" value="수정"
+				<td colspan="4" align="center">
+				<input type="button" value="수정"
 					onclick="location.href='update.do?no=<%=bCont.getBoard_no()%>'">
-					&nbsp;&nbsp; <input type="button" value="삭제"
-					onclick="if(confirm('정말로 삭제하시겠습니까?')){location.href='view/board_delete.do?no=<%=bCont.getBoard_no()%>'}else { return; }">
-					&nbsp;&nbsp; <input type="button" value="목록"
-					onclick="location.href='select.do'"></td>
+					&nbsp;&nbsp; 
+				
+<!-- 				<input type="button" value="삭제" -->
+<%-- 					onclick="if(confirm('정말로 삭제하시겠습니까?')){location.href='view/board_delete.do?no=<%=bCont.getBoard_no()%>'}else { return; }"> --%>
+<!-- 					&nbsp;&nbsp; //삭제시 비밀번호 입력해야 하니까 board_delete.jsp 페이지로 이동 해야함--> 
+					
+				<input type="button" value="글 삭제"
+					onclick="if(confirm('정말로 게시글을 삭제하시겠습니까?')) {
+	               				location.href='view/board_delete.jsp?no=<%=bCont.getBoard_no() %>'
+	               			}else { return; }">
+							&nbsp;&nbsp;
+
+
+				<input type="button" value="목록" onclick="location.href='select.do'"></td>
 			</tr>
 		</table>
 		</div>

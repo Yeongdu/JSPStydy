@@ -189,6 +189,345 @@ public class BoardDAO {
 	}// getContentBoard end
 	
 	
+
+	// board 테이블의 글번호에 해당하는 게시글을 수정하는 메서드.
+	public int updateBoard(BoardDTO dto) {
+		
+		int result = 0;
+		
+		try {
+			openConn();
+			
+			sql = "select * from board "
+					+ " where board_no = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, dto.getBoard_no());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(dto.getBoard_pwd().equals(rs.getString("board_pwd"))) {
+					sql = "update board set board_title = ?, board_cont = ?, board_update = sysdate "
+							+ " where board_no = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, dto.getBoard_title());
+					
+					pstmt.setString(2, dto.getBoard_cont());
+					
+					pstmt.setInt(3, dto.getBoard_no());
+					
+					result = pstmt.executeUpdate();
+					
+				}else {  // 비밀번호가 틀린 경우
+					result = -1;
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		return result;
+	}  // updateBoard() 메서드 end
+	
+	
+	// board 테이블에서 게시글 번호에 해당하는 게시글을
+	// 삭제하는 메서드.
+	public int deleteBoard(int no, String pwd) {
+		
+		int result = 0;
+		
+		try {
+			openConn();
+			
+			sql = "select * from board where board_no = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(pwd.equals(rs.getString("board_pwd"))) {
+					
+					sql = "delete from board "
+							+ " where board_no = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, no);
+					
+					result = pstmt.executeUpdate();
+				
+				}else {
+					
+					result = -1;
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+
+		}
+		
+		return result;		
+	}  // deleteBoard() 메서드 end
+	
+	
+	// board 테이블에서 중간의 게시글 삭제 시 
+	// 글번호 재정렬하는 메서드.
+	public void updateSequence(int no) {
+		
+		try {
+			openConn();
+			
+			sql = "update board set "
+					+ " board_no = board_no - 1 "
+					+ " where board_no > ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+	}  // updateSequence() 메서드 end
+	
+	
+	// board 테이블에서 게시물을 검색하는 메서드.
+	public List<BoardDTO> searchBoard(
+			String field, String keyword) {
+		
+		List<BoardDTO> list = 
+					new ArrayList<BoardDTO>();
+		
+		openConn();
+		
+		if(field.equals("title")) {  // 제목으로 검색한 경우
+			
+			try {
+				sql = "select * from board "
+						+ " where board_title like ? "
+						+ " order by board_no desc";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					BoardDTO dto = new BoardDTO();
+					
+					dto.setBoard_no
+							(rs.getInt("board_no"));
+					
+					dto.setBoard_writer
+							(rs.getString("board_writer"));
+					
+					dto.setBoard_title
+							(rs.getString("board_title"));
+					
+					dto.setBoard_cont
+							(rs.getString("board_cont"));
+					
+					dto.setBoard_pwd
+							(rs.getString("board_pwd"));
+					
+					dto.setBoard_hit
+							(rs.getInt("board_hit"));
+					
+					dto.setBoard_date
+							(rs.getString("board_date"));
+					
+					dto.setBoard_update
+							(rs.getString("board_update"));
+					
+					list.add(dto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+		}else if(field.equals("cont")) {  // 내용으로 검색한 경우
+			
+			try {
+				sql = "select * from board "
+						+ " where board_cont like ? "
+						+ " order by board_no desc";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					BoardDTO dto = new BoardDTO();
+					
+					dto.setBoard_no
+							(rs.getInt("board_no"));
+					
+					dto.setBoard_writer
+							(rs.getString("board_writer"));
+					
+					dto.setBoard_title
+							(rs.getString("board_title"));
+					
+					dto.setBoard_cont
+							(rs.getString("board_cont"));
+					
+					dto.setBoard_pwd
+							(rs.getString("board_pwd"));
+					
+					dto.setBoard_hit
+							(rs.getInt("board_hit"));
+					
+					dto.setBoard_date
+							(rs.getString("board_date"));
+					
+					dto.setBoard_update
+							(rs.getString("board_update"));
+					
+					list.add(dto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+		}else if(field.equals("title_cont")) {
+			
+			try {
+				sql = "select * from board "
+						+ " where board_title like ? "
+						+ " or board_cont like ? "
+						+ " order by board_no desc";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				
+				pstmt.setString(2, "%"+keyword+"%");
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					BoardDTO dto = new BoardDTO();
+					
+					dto.setBoard_no
+							(rs.getInt("board_no"));
+					
+					dto.setBoard_writer
+							(rs.getString("board_writer"));
+					
+					dto.setBoard_title
+							(rs.getString("board_title"));
+					
+					dto.setBoard_cont
+							(rs.getString("board_cont"));
+					
+					dto.setBoard_pwd
+							(rs.getString("board_pwd"));
+					
+					dto.setBoard_hit
+							(rs.getInt("board_hit"));
+					
+					dto.setBoard_date
+							(rs.getString("board_date"));
+					
+					dto.setBoard_update
+							(rs.getString("board_update"));
+					
+					list.add(dto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+		}else { // 작성자로 검색한 경우
+			
+			try {
+				sql = "select * from board "
+						+ " where board_writer like ? "
+						+ " order by board_no desc";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					BoardDTO dto = new BoardDTO();
+					
+					dto.setBoard_no
+							(rs.getInt("board_no"));
+					
+					dto.setBoard_writer
+							(rs.getString("board_writer"));
+					
+					dto.setBoard_title
+							(rs.getString("board_title"));
+					
+					dto.setBoard_cont
+							(rs.getString("board_cont"));
+					
+					dto.setBoard_pwd
+							(rs.getString("board_pwd"));
+					
+					dto.setBoard_hit
+							(rs.getInt("board_hit"));
+					
+					dto.setBoard_date
+							(rs.getString("board_date"));
+					
+					dto.setBoard_update
+							(rs.getString("board_update"));
+					
+					list.add(dto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+		}
+		
+		return list;
+	}  // searchBoard() 메서드 end
 	
 
 		

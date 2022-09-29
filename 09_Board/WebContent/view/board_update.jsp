@@ -42,7 +42,8 @@ border-spacing: 0px;
 
 		<form method="post"
 			action="<%=request.getContextPath() %>/update_ok.do">
-			
+			  <input type="hidden" name="board_no" 
+	      				value="<%=cont.getBoard_no() %>">
 			<table width="400">
 			
        		<tr>
