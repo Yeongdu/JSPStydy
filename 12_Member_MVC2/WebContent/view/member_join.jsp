@@ -53,7 +53,7 @@
 				<td colspan="2" align="center">
 				<input type="submit" value="회원등록">&nbsp;&nbsp;
 				<input type="reset" value="다시작성">&nbsp;&nbsp;
-				<input type="button" value="회원목록" onclick="location.href='../select.do'">
+				<input type="button" value="회원목록" onclick="location.href='select.do'">
 				</td>
 			</tr>
 </table>

@@ -21,7 +21,7 @@ public class MemberDAO {
 
     private static MemberDAO instance;
 
-    private MemberDAO() {}
+    public MemberDAO() {}
 
 
     public static MemberDAO getInstance() {
@@ -142,4 +142,61 @@ public class MemberDAO {
 		}
 		return result;
 	}
+    
+	public MemberDTO getMemberContent(int no) {
+		MemberDTO dto = null;
+		try {
+			openConn();
+			sql = "select * from member10 where num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				dto = new MemberDTO();
+				dto.setNum(rs.getInt("num"));
+				dto.setMemid(rs.getString("memid"));
+				dto.setMemname(rs.getString("memname"));
+				dto.setPwd(rs.getString("pwd"));
+				dto.setAge(rs.getInt("age"));
+				dto.setMileage(rs.getInt("mileage"));
+				dto.setJob(rs.getString("job"));
+				dto.setAddr(rs.getString("addr"));
+				dto.setRegdate(rs.getString("regdate"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return dto;
+	}
+	
+	
+	public int updateMember(MemberDTO dto) {
+
+        int result = 0;
+        openConn();
+
+        try {
+
+            sql="update member10 set age=?, mileage=?, job=?, addr=? where num=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, dto.getAge());
+            pstmt.setInt(2, dto.getMileage());
+            pstmt.setString(3, dto.getJob());
+            pstmt.setString(4, dto.getAddr());
+            pstmt.setInt(5, dto.getNum());
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            closeConn(rs, pstmt, con);
+        }
+        return result;
+    }
+	
 }

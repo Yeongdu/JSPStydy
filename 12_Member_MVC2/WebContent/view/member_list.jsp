@@ -33,7 +33,7 @@
 					
 
 					<td>
-						<a href="<%=request.getContextPath() %>/content.do>num=${dto.getNum() }">${dto.getMemname() }</a>
+						<a href="<%=request.getContextPath() %>/content.do?num=${dto.getNum() }">${dto.getMemname() }</a>
 					</td>
 					<td>${dto.getRegdate().substring(0,10) }</td>
 					</tr>

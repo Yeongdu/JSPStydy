@@ -40,6 +40,12 @@ public class FrontController extends HttpServlet{
 			action = new MemberJoinAction();
 		}else if(command.equals("insert_ok.do")) {
 			action = new MemberJoinOkAction();
+		}else if(command.equals("content.do")) {
+			action = new MemberContent();
+		}else if(command.equals("modify.do")) {
+			action = new MemberModifyAction();
+		}else if(command.equals("modify_ok.do")) {
+			action = new MemberModifyOkAction();
 		}
 		
 		
