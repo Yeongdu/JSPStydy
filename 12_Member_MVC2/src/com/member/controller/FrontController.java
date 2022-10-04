@@ -36,9 +36,11 @@ public class FrontController extends HttpServlet{
 		Action action = null;
 		if(command.equals("select.do")) {
 			action = new MemberListAction();
-		}else if(command.equals("insert.do"))
+		}else if(command.equals("insert.do")) {
 			action = new MemberJoinAction();
-		
+		}else if(command.equals("insert_ok.do")) {
+			action = new MemberJoinOkAction();
+		}
 		
 		
 		//path1 = "view/member_list.jsp";

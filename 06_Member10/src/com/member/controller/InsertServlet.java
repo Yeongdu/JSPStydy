@@ -59,7 +59,7 @@ public class InsertServlet extends HttpServlet {
 		
 	
 		// 3단계 : DB에 DTO객체 전송
-		//DB에 전송할 dto객체를 메서드	 호출 시 해당 메서드의 인자로 정보를 넘겨주자
+		//DB에 전송할 dto객체를 메서드 호출 시 해당 메서드의 인자로 정보를 넘겨주자
 		
 		MemberDAO dao = new MemberDAO();
 		int check = dao.insertMember(dto);

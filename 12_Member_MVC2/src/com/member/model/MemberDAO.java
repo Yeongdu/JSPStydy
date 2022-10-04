@@ -107,4 +107,39 @@ public class MemberDAO {
 		}
     	return list;
 	}//getMemberList end
+    
+    public int insertMember(MemberDTO dto) {
+		int result = 0, count = 0;
+		
+		try {
+		openConn();
+		sql = "select max(num) from member10";
+		pstmt = con.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			count = rs.getInt(1)+1;
+		}
+		
+		sql = "insert into member10 values(?,?,?,?,?,?,?,?,sysdate)";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, count);
+		pstmt.setString(2, dto.getMemid());
+		pstmt.setString(3, dto.getMemname());
+		pstmt.setString(4, dto.getPwd());
+		pstmt.setInt(5, dto.getAge());
+		pstmt.setInt(6, dto.getMileage());
+		pstmt.setString(7, dto.getJob());
+		pstmt.setString(8, dto.getAddr());
+		
+		result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
 }
