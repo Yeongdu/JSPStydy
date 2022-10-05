@@ -20,8 +20,8 @@ th{
 text-align: center;
 }
 
-td:hover{
-text-shadow: 1px 1px 2px DeepSkyBlue, 0 0 0.6em Plum, 0 0 0.2em blue;
+.title_style:hover{
+background-color: LightGrey;
 }
 
 

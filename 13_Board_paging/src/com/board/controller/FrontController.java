@@ -42,6 +42,11 @@ public class FrontController extends HttpServlet{
 		}else if(command.equals("board_write_OK.do")) {
 			action = new BoardWriteAction();
 			action.execute(request, response);
+		}else if(command.equals("board_content.do")) {
+			action = new BoardContentAction();
+			action.execute(request, response);
+			viewPage="view/board_content.jsp";
+			
 		}
 		
 		
