@@ -37,7 +37,13 @@ public class FrontController extends HttpServlet{
 			action = new BoardListAction();
 			action.execute(request, response);
 			viewPage="view/board_list.jsp";
+		}else if(command.equals("board_write.do")) {
+			viewPage="view/board_write.jsp";
+		}else if(command.equals("board_write_OK.do")) {
+			action = new BoardWriteAction();
+			action.execute(request, response);
 		}
+		
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);
 		

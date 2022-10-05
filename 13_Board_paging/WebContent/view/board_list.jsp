@@ -13,11 +13,24 @@
 .pagination{
 justify-content: center;
 }
+a{
+text-decoration: none;
+}
+th{
+text-align: center;
+}
+
+td:hover{
+text-shadow: 1px 1px 2px DeepSkyBlue, 0 0 0.6em Plum, 0 0 0.2em blue;
+}
+
+
 </style>
 </head>
 <body>
+<br><br>
 	<div align="center">
-		<hr width="50%" color="gray">
+
 		<h3>BOARD 테이블 게시물 전체 리스트</h3>
 		<hr width="50%" color="gray">
 		<br>
@@ -35,7 +48,7 @@ justify-content: center;
 				<c:forEach items="${list }" var="dto">
 					<tr>
 						<td>${dto.getBoard_no() }</td>
-						<td><a href="<%=request.getContextPath()%>/board_content.do?no=${dto.getBoard_no() }&page=${page }">
+						<td class="title_style"><a href="<%=request.getContextPath()%>/board_content.do?no=${dto.getBoard_no() }&page=${page }">
 				${dto.getBoard_title() }</a></td>
 						<td>${dto.getBoard_hit() }</td>
 						<td>${dto.getBoard_date().substring(0,10) }</td>
@@ -53,7 +66,7 @@ justify-content: center;
 			
 			<tr>
 				<td colspan="4" align="center">
-					<input type="button" class="btn btn-primary" value="글쓰기" onclick="location.href='board_write.do'">
+					<input type="button" class="btn btn-outline-primary" value="글쓰기" onclick="location.href='board_write.do'">
 				</td>
 			</tr>
 		</table>

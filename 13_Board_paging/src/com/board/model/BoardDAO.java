@@ -137,6 +137,38 @@ public class BoardDAO {
 		return list;
 	}
 	
+	public int BoardWrite(BoardDTO dto) {
+		int result = 0, count = 0;
+		
+		try {
+		openConn();
+		sql = "select max(board_no) from board";
+		pstmt = con.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			count = rs.getInt(1)+1;
+		}
+		
+		sql = "insert into board values(?, ?, ?, ?, ?, default, sysdate, '')";
+		
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, count);
+		pstmt.setString(2, dto.getBoard_writer());
+		pstmt.setString(3, dto.getBoard_title());
+		pstmt.setString(4, dto.getBoard_cont());
+		pstmt.setString(5, dto.getBoard_pwd());
+		result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+	
 	
 	
 }
