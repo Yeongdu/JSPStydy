@@ -7,9 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <style type="text/css">
-* {
-text-decoration: none;
+.pagination{
+justify-content: center;
 }
 </style>
 </head>
@@ -20,7 +22,7 @@ text-decoration: none;
 		<hr width="50%" color="gray">
 		<br>
 
-		<table border="1" cellspacing="0" width="400">
+		<table class="table table-bordered" style="width: 50%">
 			<tr>
 				<th>글번호</th>
 				<th>글제목</th>
@@ -51,13 +53,50 @@ text-decoration: none;
 			
 			<tr>
 				<td colspan="4" align="center">
-					<input type="button" value="글쓰기" onclick="location.href='board_write.do'">
+					<input type="button" class="btn btn-primary" value="글쓰기" onclick="location.href='board_write.do'">
 				</td>
 			</tr>
 		</table>
 		<br>
-		
-		<%-- 페이징 처리 영역 --%>
+
+
+
+
+		<nav>
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="board_list.do?page=1">First</a></li>
+            <c:choose>
+                <c:when test="${ (page - 1) == 0}">
+                    <li><a class="page-link" href="board_list.do?page=1">Previous</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a class="page-link" href="board_list.do?page=${ page - 1 }">Previous</a></li>
+                </c:otherwise>
+            </c:choose>
+            <c:forEach begin="${ startBlock }" end="${ endBlock }" var="i">
+                <c:if test="${ i==page }">
+                    <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="board_list.do?page=${i }">${i }</a></li>
+                </c:if>
+                <c:if test="${ i!=page }">
+                    <li class="page-item">
+                    <a class="page-link" href="board_list.do?page=${i }">${i }</a></li>
+                </c:if>
+            </c:forEach>
+           <c:if test="${ page < allPage }">
+                <li class="page-item">
+                <a class="page-link" href="board_list.do?page=${ page + 1 }">Next</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="board_list.do?page=${ allPage }">End</a>
+                </li>
+            </c:if>
+          </ul>
+        </nav>
+
+
+		<%-- 페이징 처리 영역 
 		<c:if test="${page > block }">
 			<a href="board_list.do?page=1">◀◀</a>
 			<a href="board_list.do?page=${startBlock -1 }">◀</a>
@@ -77,6 +116,11 @@ text-decoration: none;
 			<a href="board_list.do?page=${endBlock+1 }">▶</a>
 			<a href="board_list.do?page=${allPage }">▶▶</a>
 		</c:if>
+		--%>
+		
+		
+		
+		
 		
 	</div>
 </body>
