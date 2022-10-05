@@ -46,6 +46,10 @@ public class FrontController extends HttpServlet{
 			action = new MemberModifyAction();
 		}else if(command.equals("modify_ok.do")) {
 			action = new MemberModifyOkAction();
+		}else if(command.equals("delete.do")) {
+			action = new MemberDeleteAction();
+		}else if(command.equals("delete_ok.do")) {
+			action = new MemberDeleteOkAction();
 		}
 		
 		
@@ -55,7 +59,6 @@ public class FrontController extends HttpServlet{
 		//페이지 이동
 		RequestDispatcher rd = request.getRequestDispatcher(path1);
 		rd.forward(request, response);
-		
 		
 	}
 

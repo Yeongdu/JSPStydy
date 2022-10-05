@@ -199,4 +199,50 @@ public class MemberDAO {
         return result;
     }
 	
+	public int deleteMember(int no, String pwd) {
+
+		int result = 0;
+		try {
+			openConn();
+			sql = "select * from member10 where num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				if (pwd.equals(rs.getString("pwd"))) {
+					sql = "delete from member10 where num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, no);
+					result = pstmt.executeUpdate();
+				} else {// 비밀번호가 틀린 경우
+					result = -1;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	//회원번호 순번 다시 작업해주는 메서드
+	public void updateSequence(int no) {
+		try {
+			openConn();
+			sql = "update member10 set num = num-1 where num > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+	}
+	
 }
