@@ -34,9 +34,6 @@ th {
 	background-color: LightGrey;
 }
 
-.row{
-justify-content: center;
-}
 </style>
 </head>
 <body>
@@ -62,10 +59,8 @@ justify-content: center;
 					<tr>
 						<td>${dto.getBoard_no() }</td>
 						<td class="title_style" style="word-break: break-all;"><a
-							href="<%=request.getContextPath()%>/board_content.do?no=${dto.getBoard_no() }&page=${page }" style="
-    display: block;
-">
-								${dto.getBoard_title() }</a></td>
+							href="<%=request.getContextPath()%>/board_content.do?no=${dto.getBoard_no() }&page=${page }"
+							style="display: block;"> ${dto.getBoard_title() }</a></td>
 						<td>${dto.getBoard_hit() }</td>
 						<td>${dto.getBoard_date().substring(0,10) }</td>
 					</tr>
@@ -152,28 +147,21 @@ justify-content: center;
 		<br>
 		<%-- 검색 기능 처리 --%>
 
-<div align="center">
-		<form method="post"
-			action="<%=request.getContextPath()%>/board_search.do">
-			<div class="row">
-				<div class="col-2">
-					<select class="form-select" aria-label="Default select example"
-						name="search_field">
-						<option value="title">제목</option>
-						<option value="cont">내용</option>
-						<option value="title_cont">제목+내용</option>
-						<option value="writer">작성자</option>
-					</select>
-				</div>
-				<div class="col-3">
-					<input class="form-control" name="search_keyword"
-						value="${keyword}">
-				</div>
-				<div class="col-1">
-					<input type="submit" class="btn btn-outline-primary" value="검색">
-				</div>
-			</div>
-		</form>
+	<div class="row" style="width: 30em">
+    <div class="col-lg">
+        <form name="search_form" method="post" action="<%=request.getContextPath()%>/board_search.do">
+            <div class="input-group list-search-form w-70">
+                <select name="search_field" class="custom-select col-sm-4">
+                    <option value="title">제목</option>
+                    <option value="cont">내용</option>
+                    <option value="title_cont">제목+내용</option>
+                    <option value="writer">작성자</option>
+                </select>
+                <input type="text" name="search_keyword" value="" class="form-control" />
+                <button type="submit" class="btn btn-secondary ml-1"><i class="fa fa-search"></i> 검색</button>
+            </div>
+        </form>
+    </div>
 </div>
 	</div>
 </body>
