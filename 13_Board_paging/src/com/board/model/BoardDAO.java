@@ -301,7 +301,97 @@ public class BoardDAO {
 	} // deleteBoard() 메서드 end
 	
 	
-	
+	//검색어에 해당하는 게시물의 수를 조회하는 메서드
+	public int searchListCount(String field, String keyword) {
+		int count = 0;
+
+		try {
+			openConn();
+			String searchSql = "";
+			if (field != null && keyword != null) {
+				if (field.equals("title")) {
+					searchSql = " where board_title like '%" + keyword + "%'";
+				} else if (field.equals("cont")) {
+					searchSql = " where board_cont like '%" + keyword + "%'";
+				} else if (field.equals("title_cont")) {
+					searchSql = " where (board_title like '%" + keyword + "%') or (board_cont like '%" + keyword
+							+ "%')";
+				} else if (field.equals("writer")) {
+					searchSql = " where board_writer like '%" + keyword + "%'";
+				}
+			}
+
+			sql = "select count(*) from board" + searchSql;
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				count = rs.getInt(1);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return count;
+	}
+		
+	public List<BoardDTO> searchBoardList(String field, String keyword, int page, int rowsize) {
+	    List<BoardDTO> list = new ArrayList<BoardDTO>();
+
+	    // 해당 페이지에서 시작번호
+	    int startNo = (page * rowsize) - (rowsize - 1);
+
+	    // 해당 페이지에서 끝번호
+	    int endNo = (page * rowsize);
+
+	    openConn();
+
+	    try {
+	        String searchSql = "";
+	        if(field != null && keyword != null){
+	            if(field.equals("title")){
+	                searchSql = " where board_title like '%" + keyword + "%'";
+	            }else if(field.equals("cont")){
+	                searchSql = " where board_cont like '%" + keyword + "%'";
+	            }else if(field.equals("title_cont")){
+	                searchSql = " where (board_title like '%" + keyword + "%') or (board_cont like '%" + keyword + "%')";
+	            }else if(field.equals("writer")){
+	                searchSql = " where board_writer like '%" + keyword + "%'";
+	            }
+	        }
+
+	        sql = "select * from"
+	            + "(select row_number() over(order by board_no desc) rnum, b.* from board b "+searchSql+")"
+	            + "where rnum >= ? and rnum <= ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, startNo);
+	        pstmt.setInt(2, endNo);
+	        rs = pstmt.executeQuery();
+
+	        while(rs.next()){
+	            BoardDTO dto = new BoardDTO();
+
+	            dto.setBoard_no(rs.getInt("board_no"));
+	            dto.setBoard_writer(rs.getString("board_writer"));
+	            dto.setBoard_title(rs.getString("board_title"));
+	            dto.setBoard_cont(rs.getString("board_cont"));
+	            dto.setBoard_pwd(rs.getString("board_pwd"));
+	            dto.setBoard_hit(rs.getInt("board_hit"));
+	            dto.setBoard_date(rs.getString("board_date"));
+	            dto.setBoard_update(rs.getString("board_update"));
+
+	            list.add(dto);
+	        }
+
+	    } catch(Exception e) {
+	        e.printStackTrace();
+
+	    } finally {
+	        closeConn(rs, pstmt, con);
+	    }
+
+	    return list;
+	}
 	
 	
 }

@@ -22,6 +22,10 @@ details {
     display: inline-block;
 }
 
+.row{
+margin-top: 13px;
+
+}
 
 </style>
 </head>
@@ -94,11 +98,29 @@ details {
 						<summary class="btn btn-outline-danger">삭제</summary>
 						<form method="post"
 							action="<%=request.getContextPath()%>/board_delete_ok.do">
-							
+
 							<input type="hidden" name="no" value="${dto.getBoard_no() }">
 
 
-							<div class="mb-3 row" style="padding-top: 8px">
+							<div class="row">
+								<div class="col-2">
+									<label>비번</label>
+								</div>
+								<div class="col-5">
+									<input type="password" name="pwd" class="form-control">
+								</div>
+								<div class="col-2">
+									<input type="submit" class="btn btn-outline-danger"
+										value="글 삭제">
+								</div>
+								<div class="col-2">
+									<input type="submit" class="btn btn-outline-primary"
+										value="다시작성">
+								</div>
+							</div>
+
+
+							<!-- <div class="mb-3 row" style="padding-top: 8px">
 								<label for="exampleFormControlInput1"
 									class="col-sm-2 col-form-label">비번</label>
 								<div class="col-sm-10">
@@ -108,7 +130,7 @@ details {
 								<input type="submit"
 										value="글 삭제" class="btn btn-outline-danger" style="margin-top: 8px"> &nbsp;&nbsp; <input type="reset"
 										value="다시작성" class="btn btn-outline-primary">
-							</div>
+							</div> -->
 							
 							
 
