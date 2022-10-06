@@ -217,6 +217,89 @@ public class BoardDAO {
 		return dto;
 	}
 	
+	public int getBoardUpdate(BoardDTO dto) {
+		int result = 0;
+		try {
+			openConn();
+			sql = "select * from board where board_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getBoard_no());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(dto.getBoard_pwd().equals(rs.getString("board_pwd"))) {
+					sql = "update board set board_title=?, board_cont=?, board_update=sysdate where board_no=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, dto.getBoard_title());
+					pstmt.setString(2, dto.getBoard_cont());
+					pstmt.setInt(3, dto.getBoard_no());
+					result = pstmt.executeUpdate();
+				}else {
+					result = -1;
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	public void updateSequence(int no) {
+
+		try {
+			openConn();
+			sql = "update board set board_no = board_no - 1 where board_no > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+	} // updateSequence() 메서드 end
+	
+	
+	
+	
+	public int getBoardDelete(int no, String pwd) {
+
+		int result = 0;
+
+		try {
+			openConn();
+			sql = "select * from board where board_no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				if (pwd.equals(rs.getString("board_pwd"))) {
+					sql = "delete from board where board_no = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, no);
+					result = pstmt.executeUpdate();
+				} else {
+					result = -1;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	} // deleteBoard() 메서드 end
+	
 	
 	
 	

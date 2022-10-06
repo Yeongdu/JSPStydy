@@ -46,7 +46,16 @@ public class FrontController extends HttpServlet{
 			action = new BoardContentAction();
 			action.execute(request, response);
 			viewPage="view/board_content.jsp";
-			
+		}else if(command.equals("board_update.do")) {
+			action = new BoardUpdateAction();
+			action.execute(request, response);
+			viewPage="view/board_update.jsp";
+		}else if(command.equals("board_update_OK.do")) {
+			action = new BoardUpdateOkAction();
+			action.execute(request, response);
+		}else if(command.equals("board_delete_ok.do")) {
+			action = new BoardDeleteAction();
+			action.execute(request, response);
 		}
 		
 		

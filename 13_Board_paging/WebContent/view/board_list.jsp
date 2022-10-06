@@ -35,7 +35,7 @@ background-color: LightGrey;
 		<hr width="50%" color="gray">
 		<br>
 
-		<table class="table table-bordered" style="width: 50%">
+		<table class="table table-bordered" style="width: 36em">
 			<tr>
 				<th>글번호</th>
 				<th>글제목</th>
@@ -48,7 +48,7 @@ background-color: LightGrey;
 				<c:forEach items="${list }" var="dto">
 					<tr>
 						<td>${dto.getBoard_no() }</td>
-						<td class="title_style"><a href="<%=request.getContextPath()%>/board_content.do?no=${dto.getBoard_no() }&page=${page }">
+						<td class="title_style" style="word-break:break-all;"><a href="<%=request.getContextPath()%>/board_content.do?no=${dto.getBoard_no() }&page=${page }">
 				${dto.getBoard_title() }</a></td>
 						<td>${dto.getBoard_hit() }</td>
 						<td>${dto.getBoard_date().substring(0,10) }</td>
@@ -131,9 +131,23 @@ background-color: LightGrey;
 		</c:if>
 		--%>
 		
+		<br>
+		<hr width="50%" color="gray">
+		<br>
+		<%-- 검색 기능 처리 --%>
 		
-		
-		
+		<form method="post" action="<%=request.getContextPath() %>/board_search.do">
+			<select name="search_field">
+				<option value="title">제목</option>
+				<option value="cont">내용</option>
+				<option value="title_cont">제목+내용</option>
+				<option value="writer">작성자</option>
+			</select>
+			
+			<input name="search_keyword">&nbsp;&nbsp;
+			<input type="submit" value="검색">
+
+		</form>
 		
 	</div>
 </body>
