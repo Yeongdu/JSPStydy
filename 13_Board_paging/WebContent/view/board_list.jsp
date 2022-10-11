@@ -24,6 +24,12 @@ text-align: center;
 background-color: LightGrey;
 }
 
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control, .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select, .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+border-start-start-radius: 7px;
+border-end-start-radius: 7px;
+
+}
+
 
 </style>
 </head>
@@ -131,6 +137,7 @@ background-color: LightGrey;
 			<a href="board_list.do?page=${allPage }">▶▶</a>
 		</c:if>
 		--%>
+		
 		
 		<br>
 		<hr width="50%" color="gray">

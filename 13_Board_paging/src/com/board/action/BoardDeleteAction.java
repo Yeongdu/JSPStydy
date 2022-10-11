@@ -27,6 +27,7 @@ public class BoardDeleteAction implements Action {
 		PrintWriter out = response.getWriter();
 		
 		if (res > 0) {//location.href='board_update.do?no=${dto.getBoard_no() }&page=${Page }'"
+			dao.updateSequence(board_no);
 			out.println("<script> alert('게시글 삭제 성공!');" + "location.href='board_list.do'" + "</script>");
 		} else {
 			out.println("<script> alert('게시글 삭제 실패! 비밀번호를 확인하세요.');" + "history.back(); </script>");

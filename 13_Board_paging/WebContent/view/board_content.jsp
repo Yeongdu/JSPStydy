@@ -114,7 +114,7 @@ margin-top: 13px;
 										value="글 삭제">
 								</div>
 								<div class="col-2">
-									<input type="submit" class="btn btn-outline-primary"
+									<input type="reset" class="btn btn-outline-primary"
 										value="다시작성">
 								</div>
 							</div>
