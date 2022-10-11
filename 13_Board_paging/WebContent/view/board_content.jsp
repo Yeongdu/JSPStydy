@@ -110,11 +110,11 @@ margin-top: 13px;
 									<input type="password" name="pwd" class="form-control">
 								</div>
 								<div class="col-2">
-									<input type="submit" class="btn btn-outline-danger"
+									<input class="btn btn-outline-danger" type="submit" class="btn btn-outline-danger"
 										value="글 삭제">
 								</div>
 								<div class="col-2">
-									<input type="reset" class="btn btn-outline-primary"
+									<input class="btn btn-outline-secondary" type="reset" class="btn btn-outline-primary"
 										value="다시작성">
 								</div>
 							</div>
