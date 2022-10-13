@@ -214,5 +214,29 @@ public class MemberDAO {
 		return result;
 	}	//insertCustomer() end
 	
+	
+	// 넘겨 받은 번호에 해당하는 고객을 DB에서 삭제하는 메서드.
+		public int deleteCustomer(int no) {
+			int result = 0;
+			try {
+				openConn();
+				
+				sql = "delete from customer where no = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, no);
+				result = pstmt.executeUpdate();
+				sql = "update customer set  no = no - 1 where no > ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, no);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			return result;
+		}  // deleteCustomer() 메서드 end
+	
 
 }

@@ -28,7 +28,8 @@ $(function() {
 					table += "<td>" + $(this).find("age").text() + "</td>";
 					table += "<td>" + $(this).find("phone").text() + "</td>";
 					table += "<td>" + $(this).find("addr").text() + "</td>";
-					table += "<td></td>";
+					table += "<td id='tdDel'> <input type='button' value='삭제'" +
+					          " id='del' num='" +$(this).find("no").text() + "'></td>";
 
 					table += "</tr>";
 				});
@@ -104,6 +105,31 @@ $(function() {
 		})
 	})
 
+	// 삭제 버튼을 클릭했을 때 이벤트 적용
+	// 삭제 버튼처럼 동적으로 생성된 요소는 
+	// 제이쿼리에서 on() 함수를 이용해야 함.
+	// 형식) on("click" 이나 "change" 같은 이벤트,
+	//         "이벤트 적용 선택자 또는 태그", 동작함수(무명함수))
+	$("table").on("click", "#del", function() {
+		$.ajax({
+			url : "/16_Ajax/delete.do",
+			data : "no="+$(this).attr("num"),
+			datatype : "text",
+			success : function(data) {
+				if(data > 0) {
+					alert('고객이 삭제 되었습니다.!!!');
+					
+					getData();
+				}else {
+					alert('고객 삭제 실패~~~');
+				}
+			},
+			
+			error: function(e) {
+				alert("Error : " + e.status);
+			}
+		});
+	});
 
 	getData();
 
