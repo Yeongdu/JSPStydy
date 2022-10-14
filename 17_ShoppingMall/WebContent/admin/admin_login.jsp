@@ -17,13 +17,18 @@
 <style type="text/css">
 .mb-3 {
 	width: 50%;
-	
+	justify-content: center;
 }
 
+input.btn.btn-primary{
+	width: 90px;
+}
 </style>
 </head>
 <body>
 	<div align="center">
+	<br>
+		<h1>🐰</h1>
 		<hr width="65%" color="MediumTurquoise">
 		<h3>관리자 페이지</h3>
 		<hr width="65%" color="MediumTurquoise">
@@ -43,7 +48,7 @@
 				</div>
 			</div>
 			
-			<div>
+			<div class="button1">
 				<input type="submit" value="로그인" class="btn btn-primary">&nbsp;&nbsp;
 				<input type="reset" value="다시작성" class="btn btn-outline-primary">&nbsp;&nbsp;
 			</div>

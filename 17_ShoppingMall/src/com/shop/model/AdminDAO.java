@@ -128,6 +128,7 @@ public class AdminDAO {
 				sql = "select * from admin_shop where admin_id = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					dto = new AdminDTO();
 					dto.setAdmin_id(rs.getString("admin_id"));
