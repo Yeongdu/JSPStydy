@@ -19,6 +19,18 @@ clear: both;
 a {
 text-decoration: none;
 }
+
+td {
+	text-align: center;
+}
+
+td a {
+	display: block;
+}
+
+td a:hover {
+	text-shadow: 1px 1px 2px gray;
+}
 </style>
 </head>
 <body>
@@ -36,7 +48,7 @@ text-decoration: none;
 			<hr width="65%">
 			<br>
 			
-			<table width="65%">
+			<table width="65%" heigh="13%">
 				<tr>
 					<td>
 						<a href="<%=request.getContextPath() %>/admin_main.do">관리자 홈</a>
