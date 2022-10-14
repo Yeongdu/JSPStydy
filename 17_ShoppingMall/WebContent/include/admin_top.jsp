@@ -15,6 +15,10 @@ word-spacing: 10px;
 clear: both;
 
 }
+
+a {
+text-decoration: none;
+}
 </style>
 </head>
 <body>
@@ -32,7 +36,7 @@ clear: both;
 			<hr width="65%">
 			<br>
 			
-			<table width="800">
+			<table width="65%">
 				<tr>
 					<td>
 						<a href="<%=request.getContextPath() %>/admin_main.do">관리자 홈</a>
@@ -59,6 +63,7 @@ clear: both;
 		
 		
 		<hr width="65%">
+		<br>
 
 </body>
 </html>

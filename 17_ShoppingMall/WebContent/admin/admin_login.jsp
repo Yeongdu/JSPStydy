@@ -18,6 +18,7 @@
 .mb-3 {
 	width: 50%;
 	justify-content: center;
+	margin-bottom: 0!important;
 }
 
 input.btn.btn-primary{
@@ -27,7 +28,7 @@ input.btn.btn-primary{
 </head>
 <body>
 	<div align="center">
-	<br>
+		<br>
 		<h1>🐰</h1>
 		<hr width="65%" color="MediumTurquoise">
 		<h3>관리자 페이지</h3>
@@ -36,9 +37,9 @@ input.btn.btn-primary{
 
 		<form method="post"
 			action="<%=request.getContextPath() %>/admin_login_ok.do">
-			<div class="mb-3 row">
+			<div class="mb-3 row" >
 				<div class="col-sm-10">
-					<input type="text" name="admin_id" class="form-control" placeholder="Admin ID" autocomplete="off" required autofocus>
+					<input type="text" name="admin_id" class="form-control" placeholder="Admin ID" autocomplete="off" required autofocus">
 				</div>
 			</div>
 
@@ -48,7 +49,7 @@ input.btn.btn-primary{
 				</div>
 			</div>
 			
-			<div class="button1">
+			<div class="button1" style="margin-top: 10px;">
 				<input type="submit" value="로그인" class="btn btn-primary">&nbsp;&nbsp;
 				<input type="reset" value="다시작성" class="btn btn-outline-primary">&nbsp;&nbsp;
 			</div>
