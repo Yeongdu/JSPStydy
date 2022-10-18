@@ -12,7 +12,7 @@ import com.shop.controller.ActionForward;
 import com.shop.model.AdminDAO;
 import com.shop.model.AdminDTO;
 
-public class AdminLoginOkAcion implements Action {
+public class AdminLoginOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -10,7 +10,7 @@ import com.shop.controller.Action;
 import com.shop.controller.ActionForward;
 import com.shop.model.CategoryDAO;
 
-public class AdminCategoryInputOkAcion implements Action {
+public class AdminCategoryInputOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {

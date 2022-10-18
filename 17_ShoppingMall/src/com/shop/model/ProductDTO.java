@@ -9,7 +9,7 @@ public class ProductDTO {
     private int pqty;
     private int price;
     private String pspec;
-    private String pcontents;
+    private String pcontent;
     private int point;
     private String pinputdate;
     
@@ -61,11 +61,11 @@ public class ProductDTO {
 	public void setPspec(String pspec) {
 		this.pspec = pspec;
 	}
-	public String getPcontents() {
-		return pcontents;
+	public String getPcontent() {
+		return pcontent;
 	}
-	public void setPcontents(String pcontents) {
-		this.pcontents = pcontents;
+	public void setPcontent(String pcontents) {
+		this.pcontent = pcontents;
 	}
 	public int getPoint() {
 		return point;

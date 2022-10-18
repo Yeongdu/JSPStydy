@@ -13,7 +13,7 @@ import com.shop.controller.ActionForward;
 import com.shop.model.ProductDAO;
 import com.shop.model.ProductDTO;
 
-public class AdminProductInputOKAcion implements Action {
+public class AdminProductInputOKAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -48,7 +48,7 @@ public class AdminProductInputOKAcion implements Action {
 		dto.setPqty(product_qty);
 		dto.setPrice(product_price);
 		dto.setPspec(product_spec);
-		dto.setPcontents(product_content);
+		dto.setPcontent(product_content);
 		dto.setPoint(product_point);
 		dto.setPimage(product_image);
 		

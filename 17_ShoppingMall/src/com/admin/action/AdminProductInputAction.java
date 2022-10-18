@@ -1,7 +1,7 @@
 package com.admin.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,26 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.shop.controller.Action;
 import com.shop.controller.ActionForward;
 import com.shop.model.CategoryDAO;
+import com.shop.model.CategoryDTO;
 
-public class AdminCategoryDeleteAcion implements Action {
+public class AdminProductInputAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// TODO Auto-generated method stub
-		
-		int category_num = Integer.parseInt(request.getParameter("cnum").trim());
+		// 카테고리 코드 전체 리스트를 DB에서 조회하여 상품 등록 폼 페이지로 이동시키는 비지니스 로직
 		
 		CategoryDAO dao = CategoryDAO.getInstance();
-		int check = dao.deleteCategory(category_num);
+		List<CategoryDTO> list = dao.getCategoryList();
+		request.setAttribute("categoryList", list);
 		ActionForward forward = new ActionForward();
-		PrintWriter out = response.getWriter();
-		
-		if(check>0) {
-			forward.setRedirect(true);
-			forward.setPath("admin_category_list.do");
-		}else {
-			out.println("<script> alert('카테고리 코드 삭제 실패'); history.back(); </script>");
-		}
+		forward.setRedirect(false);
+		forward.setPath("admin/admin_product_input.jsp");
 		
 		return forward;
 	}

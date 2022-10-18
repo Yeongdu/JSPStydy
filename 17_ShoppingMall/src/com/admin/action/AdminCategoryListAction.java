@@ -11,7 +11,7 @@ import com.shop.controller.ActionForward;
 import com.shop.model.CategoryDAO;
 import com.shop.model.CategoryDTO;
 
-public class AdminCategoryListAcion implements Action {
+public class AdminCategoryListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
