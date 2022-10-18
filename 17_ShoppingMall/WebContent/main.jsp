@@ -18,6 +18,7 @@
 	   
 	    <button type="button"  class="btn btn-outline-secondary btn-lg" onclick="location.href='<%=request.getContextPath()%>/member_login.do'">회원로그인</button>
 	   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+	   &nbsp;
 	    <button type="button"  class="btn btn-outline-secondary btn-lg" onclick="location.href='<%=request.getContextPath()%>/admin_login.do'">관리자로그인</button>
 	   
 	</div>
