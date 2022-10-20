@@ -124,16 +124,21 @@ public class BoardDAO {
 		}
 		return list;
 	}
-
+	
 	public BoardDTO getBoardContent(int no) {
+
 		BoardDTO dto = null;
+
 		try {
+
 			openConn();
 			sql = "select * from tbl_board where bno = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+
+			if (rs.next()) {
+
 				dto = new BoardDTO();
 				dto.setBno(rs.getInt("bno"));
 				dto.setWriter(rs.getString("writer"));
@@ -142,6 +147,7 @@ public class BoardDAO {
 				dto.setPwd(rs.getString("pwd"));
 				dto.setRegdate(rs.getString("regdate"));
 				dto.setRegupdate(rs.getString("regupdate"));
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -149,7 +155,145 @@ public class BoardDAO {
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
+
 		return dto;
+
+	}// getBoardContent() 메서드 end
+
+//	public BoardDTO getBoardContent(int no) {
+//		BoardDTO dto = null;
+//		try {
+//			openConn();
+//			sql = "select * from tbl_board where bno = ?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, no);
+//			rs = pstmt.executeQuery();
+//			if(rs.next()) {
+//				dto = new BoardDTO();
+//				dto.setBno(rs.getInt("bno"));
+//				dto.setWriter(rs.getString("writer"));
+//				dto.setTitle(rs.getString("title"));
+//				dto.setContent(rs.getString("content"));
+//				dto.setPwd(rs.getString("pwd"));
+//				dto.setRegdate(rs.getString("regdate"));
+//				dto.setRegupdate(rs.getString("regupdate"));
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			closeConn(rs, pstmt, con);
+//		}
+//		return dto;
+//	}
+
+	// 글번호에 해당하는 댓글 리스트를 조회하는 메서드.
+		public String getReplyList(int no) {
+			
+			String result = "";
+			
+			try {
+				openConn();
+				
+				sql = "select * from tbl_reply "
+						+ " where bno = ? "
+						+ " order by redate desc";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, no);
+				
+				rs = pstmt.executeQuery();
+				
+				result += "<replys>";
+				
+				while(rs.next()) {
+					
+					result += "<reply>";
+					result += "<rno>" + rs.getInt("rno") +"</rno>";
+					result += "<bno>" + rs.getInt("bno") +"</bno>";
+					result += "<rewriter>" + rs.getString("rewriter") +"</rewriter>";
+					result += "<recont>" + rs.getString("recont") +"</recont>";
+					result += "<redate>" + rs.getString("redate") +"</redate>";
+					result += "<reupdate>" + rs.getString("reupdate") +"</reupdate>";
+					result += "</reply>";
+				}
+				
+				result += "</replys>";
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+			return result;
+		}  // getReplyList() 메서드 end
+	
+	
+	
+	//글번호에 해당하는 댓글 리스트를 조회
+//	public String getReplyList(int no) {
+//		String result = "";
+//		try {
+//			openConn();
+//			sql = "select * from tbl_reply where bno = ? order by redate desc";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, no);
+//			
+//			rs = pstmt.executeQuery();
+//			result += "<replys>";
+//			while(rs.next()) {
+//				result += "<reply>";
+//				result += "<rno>" + rs.getInt("rno") +"</rno>";
+//				result += "<bno>" + rs.getInt("bno") +"</bno>";
+//				result += "<rewriter>" + rs.getString("rewriter") +"</rewriter>";
+//				result += "<recont>" + rs.getString("recont") +"</recont>";
+//				result += "<redate>" + rs.getString("redate") +"</redate>";
+//				result += "<reupdate>" + rs.getString("reupdate") +"</reupdate>";
+//				result += "</reply>";
+//			}
+//			result += "</replys>";
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			closeConn(rs, pstmt, con);
+//		}
+//		return result;		
+//	}
+	
+	//답변글을 tbl_reply 테이블에 저장하는 메서드
+	public int replyInsert(ReplyDTO dto) {
+		int result = 0, count = 0;
+		try {
+			openConn();
+			sql ="select max(rno) from tbl_reply";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1)+1;
+			}
+			
+			sql = "insert into tbl_reply values(?,?,?,?,sysdate,'')";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count); //답변글 번호
+			pstmt.setInt(2, dto.getBno()); //원글 번호
+			pstmt.setString(3, dto.getRewriter());
+			pstmt.setString(4, dto.getRecont());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
 	}
+	
+	
 
 }
